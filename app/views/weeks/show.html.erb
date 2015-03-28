@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th>Horario</th>
-          <% day_names.each do |name| %>
+          <% days.each_with_index do |name| %>
             <th><%= name %></th>
           <% end %>
         </tr>
@@ -13,8 +13,8 @@
         <% hours.each do |hour| %>
          <tr>
            <th scope="row"><%= hour %></th>
-           <% day_names.each do |name| %>
-             <td><%= link_to "Disponível", root_path %></td>
+           <% days.each_with_index do |name, day_id| %>
+             <td><%= link_to "Disponível", schedule_room_week_path(1, 1, hour: hour, day: day_id), method: :post,  remote: true %></td>
            <% end %>
          </tr>
         <% end %>

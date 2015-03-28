@@ -1,5 +1,5 @@
-module RoomHelper
-  def day_names
+module WeeksHelper
+  def days
     @day_names ||= begin
       days = I18n.t('date.day_names').clone
       days.push(days.shift)
