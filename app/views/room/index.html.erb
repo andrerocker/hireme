@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="table-responsive" style="margin-top: 20px;">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Horario</th>
+          <% day_names.each do |name| %>
+            <th><%= name %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% hours.each do |hour| %>
+         <tr>
+           <th scope="row"><%= hour %></th>
+           <% day_names.each do |name| %>
+             <td><%= link_to "Disponível", root_path %></td>
+           <% end %>
+         </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

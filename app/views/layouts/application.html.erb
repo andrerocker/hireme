@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bioritmo Roomz</title>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <% if signed_in? %>
+              <li role="presentation">
+              <%= link_to "#{current_user.name}", root_path %>
+              </li>
+              <li role="presentation" class="active">
+                <%= link_to "Sair", destroy_user_session_path %>
+              </li>
+            <% else %>
+             <li role="presentation" class="active">
+               <%= link_to "Login", user_omniauth_authorize_path(:github) %>
+             </li>
+            <% end %>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Reserva de Sala</h3>
+      </div>
+      <%= render "notices" %>
+      <%= yield %>
+    </div>
+  </body>
+</html>
