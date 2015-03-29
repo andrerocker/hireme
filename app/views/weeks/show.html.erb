@@ -14,7 +14,23 @@
          <tr>
            <th scope="row"><%= hour %></th>
            <% days.each_with_index do |name, day_id| %>
-             <td><%= link_to "Disponível", schedule_room_week_path(1, 1, hour: hour, day: day_id), method: :post,  remote: true %></td>
+             <% scheduling = resolve_schedule(hour, day_id) %>
+             <% if scheduling.present? %>
+               <td>Reservado para <%= scheduling.user.name %></td>
+             <% else %>
+                <% if user_signed_in? %>
+                  <td>
+                    <%= link_to "Disponível",
+                       schedule_room_week_path(1, 1), 
+                       class: "sched",
+                       "data-hour": hour,
+                       "data-day_id": day_id         
+                    %>
+                </td>
+                <% else %>
+                  <td>Disponivel</td>
+                <% end %>
+             <% end %>
            <% end %>
          </tr>
         <% end %>
