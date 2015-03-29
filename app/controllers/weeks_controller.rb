@@ -8,8 +8,23 @@ class WeeksController < ApplicationController
   def schedule
     respond_to do |format|
       format.json do
-        user = Scheduling.make(current_user, @room.id, @week.id, params[:day], params[:hour]).user
-        render json: { name: user.name }
+        scheduling = Scheduling.make(current_user, @room.id, @week.id, params[:day], params[:hour])
+        render json: { name: scheduling.user.name }
+      end
+    end
+  end
+
+  def remove_schedule
+    respond_to do |format|
+      format.json do
+        Scheduling.where(
+          user_id: current_user.id,
+          room_id: @room.id,
+          week_id: @week.id,
+          day: params[:day],
+          hour: params[:hour]
+        ).destroy_all
+        render nothing: true, status: 204
       end
     end
   end

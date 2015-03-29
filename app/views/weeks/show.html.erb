@@ -15,23 +15,32 @@
            <th scope="row"><%= hour %></th>
            <% days.each_with_index do |name, day_id| %>
              <% scheduling = resolve_schedule(hour, day_id) %>
+             <td data-hour="<%= hour %>" data-day_id="<%= day_id %>">
              <% if scheduling.present? %>
-               <td>Reservado para <%= scheduling.user.name %></td>
+                 Reservado para <%= scheduling.user.name %>
+
+                  <% if current_user.id.eql?(scheduling.user_id) %>
+                    <%= link_to(schedule_room_week_path(@room.id, @week.id), class: "remove_sched") do %>
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    <% end %>
+                  <% end %>
+
              <% else %>
+
                 <% if user_signed_in? %>
-                  <td>
                     <%= link_to "Disponível",
-                       schedule_room_week_path(1, 1), 
+                       schedule_room_week_path(@room.id, @week.id), 
                        class: "sched",
                        "data-hour": hour,
                        "data-day_id": day_id         
                     %>
-                </td>
                 <% else %>
-                  <td>Disponivel</td>
+                  Disponivel
                 <% end %>
+
              <% end %>
            <% end %>
+           </td>
          </tr>
         <% end %>
       </tbody>

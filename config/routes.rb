@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :weeks, only: :show do
       member do
         post 'schedule'
+        delete 'schedule', action: "remove_schedule"
       end
     end
   end
