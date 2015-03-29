@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.2.1'
+
 gem 'rails', '~> 4.2.1'
 gem 'pg', '~> 0.18.1'
 gem 'sass-rails', '~> 5.0'
@@ -19,4 +21,8 @@ group :development, :test do
   gem 'spring', '~> 1.3.3'
   gem 'quiet_assets', '~> 1.1.0'
   gem 'better_errors', '~> 2.1.1'
+end
+
+group :production do
+  gem 'rails_12factor', '~> 0.0.3'
 end
