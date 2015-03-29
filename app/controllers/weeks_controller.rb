@@ -1,18 +1,25 @@
 class WeeksController < ApplicationController
-  before_action :load_or_create
+  before_action :load_dependencies
 
   def show
+    @schedulings = Scheduling.for_a_room_and_week(@room.id, @week.id)
   end
 
   def schedule
-    Scheduling.create!(room: @room, week: @week, day: params[:day], hour: params[:hour])
-    render json: "Yeahh"
+    respond_to do |format|
+      format.json do
+        user = Scheduling.make(current_user, @room.id, @week.id, params[:day], params[:hour]).user
+        render json: { name: user.name }
+      end
+    end
   end
 
   private
-    # We dont have cruds for this models, this is here only for PoC proposes
-    def load_or_create
-      @room = Room.where(id: params[:room_id]).first_or_create(name: "dummy")
-      @week = Week.where(number: params[:id]).first_or_create
+    def load_dependencies
+      @room = Room.find(params[:room_id])
+      @week = Week.find(params[:id])
+    rescue
+      # this can be better, in future we add Room and Week crud :p
+      redirect_to root_path
     end
 end
