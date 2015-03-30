@@ -23,6 +23,10 @@ group :development, :test do
   gem 'better_errors', '~> 2.1.1'
 end
 
+group :test do
+  gem 'rspec-rails'
+end
+
 group :production do
   gem 'rails_12factor', '~> 0.0.3'
 end
