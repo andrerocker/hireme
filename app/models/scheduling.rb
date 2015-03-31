@@ -1,4 +1,7 @@
 class Scheduling < ActiveRecord::Base
+  validates :room_id, :week_id, :user_id, presence: true 
+  validates :day, :hour, presence: true
+
   belongs_to :room
   belongs_to :week
   belongs_to :user
