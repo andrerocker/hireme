@@ -21,10 +21,13 @@ group :development, :test do
   gem 'spring', '~> 1.3.3'
   gem 'quiet_assets', '~> 1.1.0'
   gem 'better_errors', '~> 2.1.1'
+  gem 'spring-commands-rspec', '~> 1.0.4'
 end
 
 group :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.2.1'
+  gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'faker', '~> 1.4.3'
 end
 
 group :production do
