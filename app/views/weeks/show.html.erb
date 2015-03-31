@@ -19,11 +19,14 @@
              <% if scheduling.present? %>
                  Reservado para <%= scheduling.user.name %>
 
+
+                <% if user_signed_in? %>
                   <% if current_user.id.eql?(scheduling.user_id) %>
                     <%= link_to(schedule_room_week_path(@room.id, @week.id), class: "remove_sched") do %>
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <% end %>
                   <% end %>
+                <% end %>
 
              <% else %>
 

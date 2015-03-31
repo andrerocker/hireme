@@ -6,26 +6,26 @@ class WeeksController < ApplicationController
   end
 
   def schedule
-    respond_to do |format|
-      format.json do
-        scheduling = Scheduling.make(current_user, @room.id, @week.id, params[:day], params[:hour])
-        render json: { name: scheduling.user.name }
-      end
+    if signed_in?
+      scheduling = Scheduling.make(current_user, @room.id, @week.id, params[:day], params[:hour])
+      render json: { name: scheduling.user.name }
+    else
+      render json: { message: "unauthorized" }, status: 401
     end
   end
 
   def remove_schedule
-    respond_to do |format|
-      format.json do
-        Scheduling.where(
-          user_id: current_user.id,
-          room_id: @room.id,
-          week_id: @week.id,
-          day: params[:day],
-          hour: params[:hour]
-        ).destroy_all
-        render nothing: true, status: 204
-      end
+    if signed_in?
+      Scheduling.where(
+        user_id: current_user.id,
+        room_id: @room.id,
+        week_id: @week.id,
+        day: params[:day],
+        hour: params[:hour]
+      ).destroy_all
+      render nothing: true, status: 204
+    else
+      render nothing: true, status: 401
     end
   end
 
